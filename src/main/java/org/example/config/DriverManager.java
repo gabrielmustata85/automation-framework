@@ -3,8 +3,10 @@ package org.example.config;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import org.testng.Assert;
 
 public class DriverManager {
@@ -25,6 +27,20 @@ public class DriverManager {
         WebDriverManager.firefoxdriver().clearDriverCache().setup();
         return new FirefoxDriver();
     }
+    private static ChromeDriver setChromiumDriver() {
+        WebDriverManager.chromiumdriver().setup();
+        return new ChromeDriver();
+    }
+
+    private static EdgeDriver setEdgeDriver() {
+        WebDriverManager.edgedriver().setup();
+        return new EdgeDriver();
+    }
+    private static SafariDriver setSafariDriver() {
+        WebDriverManager.safaridriver().setup();
+        return new SafariDriver();
+    }
+
 
     public static ChromeDriver setDriverManual() {
         final String driverBinaryPath = System.getProperty("Path");
@@ -59,6 +75,10 @@ public class DriverManager {
                 return setFirefoxDriver();
             case "Manual":
                 return setDriverManual();
+            case "Edge":
+                return setEdgeDriver();
+            case "Safari":
+                return setSafariDriver();
             default:
                 return driver;
         }
