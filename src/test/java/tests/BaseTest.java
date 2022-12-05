@@ -1,6 +1,7 @@
 package tests;
 
 import org.example.config.DriverManager;
+import org.example.pages.HomePage;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -9,6 +10,7 @@ import java.time.Duration;
 
 public class BaseTest {
 
+    protected HomePage homePage;
     static String browser;
     static String hubUrl;
 
@@ -22,6 +24,7 @@ public class BaseTest {
 
     @BeforeTest
     public void startBrowser(){
+        homePage = new HomePage();
         DriverManager.getDriver().navigate().to("https://www.emag.ro/");
         DriverManager.getDriver().manage().window().maximize();
         DriverManager.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
