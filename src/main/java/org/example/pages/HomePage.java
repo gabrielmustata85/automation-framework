@@ -1,6 +1,7 @@
 package org.example.pages;
 
 import org.example.config.DriverManager;
+import org.example.helpers.BasePageHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -8,7 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
-public class HomePage {
+public class HomePage extends BasePageHelper {
 
 /**
 
@@ -32,23 +33,19 @@ public class HomePage {
     private final By selectUnder32Button = By.xpath("//body/div[3]/div[2]/div[1]/section[1]/div[1]/div[3]/div[2]/div[5]/div[1]/div[1]/div[1]/div[3]/a[1]/div[1]/img[1]");
 
     public HomePage searchProduct() {
-        DriverManager.getDriver().findElement(searchInput).sendKeys("samsung");
+        action.typeText(searchInput, "samsung");
+//        action.typeText(searchInput, String.valueOf(Keys.ENTER));
         DriverManager.getDriver().findElement(searchInput).sendKeys(Keys.ENTER);
-        try {
-            Thread.sleep(2500);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
+        waitHelper.waitFor(2500);
         return this;
     }
 
     public HomePage selectFirstResult() {
-        DriverManager.getDriver().findElement(selectUnder32Button).click();
+        action.clickOn(selectUnder32Button);
         return this;
     }
 
     public void verifyProductName() {
-        Assert.assertTrue(DriverManager.getDriver().getCurrentUrl().contains("samsung"));
+        Assert.assertTrue(DriverManager.getDriver().getCurrentUrl().contains("testng"), "No product with this name");
     }
 }

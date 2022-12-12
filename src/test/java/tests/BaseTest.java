@@ -1,16 +1,20 @@
 package tests;
 
+import org.example.config.ConfigProperties;
 import org.example.config.DriverManager;
 import org.example.pages.HomePage;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
 
 import java.time.Duration;
 
 public class BaseTest {
 
     protected HomePage homePage;
+    protected ConfigProperties properties;
     static String browser;
     static String hubUrl;
 
@@ -25,7 +29,8 @@ public class BaseTest {
     @BeforeTest
     public void startBrowser(){
         homePage = new HomePage();
-        DriverManager.getDriver().navigate().to("https://www.emag.ro/");
+        properties = new ConfigProperties().readConfigProperties();
+        DriverManager.getDriver().navigate().to(properties.getUrl());
         DriverManager.getDriver().manage().window().maximize();
         DriverManager.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
     }
