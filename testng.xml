@@ -3,15 +3,15 @@
 <suite name="Parallel execution"  parallel="methods" thread-count="2">
 
     <listeners>
-        <listener class-name="org.example.utils.AnnotationTransformer"></listener>
-        <listener class-name="org.example.listeners.TestListeners"></listener>
+        <listener class-name="org.example.utils.AnnotationTransformer"/>
+        <listener class-name="org.example.listeners.TestListeners"/>
     </listeners>
 
     <test name="Chrome">
         <parameter name="browser" value="Chrome"/>
         <parameter name="hubUrl" value="http://localhost:4444"/>
         <classes>
-            <class name="tests.auth.LoginTest"></class>
+            <class name="tests.auth.LoginTest"/>
 
         </classes>
     </test>

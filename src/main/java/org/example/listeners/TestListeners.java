@@ -1,6 +1,8 @@
 package org.example.listeners;
 
+import com.aventstack.extentreports.Status;
 import org.example.config.DriverManager;
+import org.example.reporting.ExtentTestManager;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.testng.ITestContext;
@@ -23,34 +25,37 @@ public class TestListeners implements ITestListener {
 
     @Override
     public void onTestFailure(ITestResult result) {
+        System.out.println("**************** FAIL *****************");
 
         //Take base64Screenshot screenshot for extent reports
         String base64Screenshot =
                 "data:image/png;base64," + ((TakesScreenshot) Objects.requireNonNull(DriverManager.getDriver())).getScreenshotAs(OutputType.BASE64);
+
+        //ExtentReports log and screenshot operations for failed tests.
+        ExtentTestManager.getTest().log(Status.INFO, "Test Failed ",
+                ExtentTestManager.getTest().addScreenCaptureFromBase64String(base64Screenshot).getModel().getMedia().get(0));
     }
 
     @Override
     public void onTestSkipped(ITestResult result) {
-        System.out.println("**************** SKIPPED *****************");
-    }
+        //Take base64Screenshot screenshot for extent reports
+        String base64Screenshot =
+                "data:image/png;base64," + ((TakesScreenshot) Objects.requireNonNull(DriverManager.getDriver())).getScreenshotAs(OutputType.BASE64);
 
-    @Override
-    public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
-        ITestListener.super.onTestFailedButWithinSuccessPercentage(result);
-    }
-
-    @Override
-    public void onTestFailedWithTimeout(ITestResult result) {
-        ITestListener.super.onTestFailedWithTimeout(result);
+        //ExtentReports log and screenshot operations for failed tests.
+        ExtentTestManager.getTest().log(Status.INFO, "Test Skipped",
+                ExtentTestManager.getTest().addScreenCaptureFromBase64String(base64Screenshot).getModel().getMedia().get(0));
     }
 
     @Override
     public void onStart(ITestContext context) {
-        ITestListener.super.onStart(context);
+        System.out.println("**************** STARTING TEST SUITE ****************");
     }
 
     @Override
     public void onFinish(ITestContext context) {
-        ITestListener.super.onFinish(context);
+        String totalTestsRun = String.valueOf(context.getPassedTests().size() + context.getFailedTests().size()
+                + context.getSkippedTests().size());
+        DriverManager.killDriver();
     }
 }

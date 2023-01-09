@@ -1,6 +1,0 @@
-org/example/helpers/BrowserHelper.class
-org/example/pages/HomePage.class
-org/example/helpers/WaitHelper.class
-org/example/helpers/BasePageHelper.class
-org/example/config/DriverManager.class
-org/example/helpers/ActionHelper.class

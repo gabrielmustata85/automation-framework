@@ -6,7 +6,7 @@ import tests.data.Data;
 
 public class LoginTest extends BaseTest {
 
-    @Test(description = "demo test", enabled = false, groups = {"grup", "tag"}, priority = 1)
+    @Test(description = "demo test", groups = {"grup", "regression"}, priority = 1)
     public void searchProduct() {
         homePage.searchProduct()
                 .selectFirstResult()

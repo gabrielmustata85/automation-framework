@@ -36,7 +36,7 @@ public class HomePage extends BasePageHelper {
         action.typeText(searchInput, "samsung");
 //        action.typeText(searchInput, String.valueOf(Keys.ENTER));
         DriverManager.getDriver().findElement(searchInput).sendKeys(Keys.ENTER);
-        waitHelper.waitFor(2500);
+        waitHelper.waitFor(2);
         return this;
     }
 
